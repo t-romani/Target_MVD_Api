@@ -1,0 +1,13 @@
+current directory: /Users/tromani/Target_MVD_Api/vendor/bundle/gems/json-2.2.0/ext/json
+/Users/tromani/.rvm/rubies/ruby-2.6.3/bin/ruby -I /Users/tromani/.rvm/rubies/ruby-2.6.3/lib/ruby/site_ruby/2.6.0 -r ./siteconf20190807-16087-pquodp.rb extconf.rb
+creating Makefile
+
+current directory: /Users/tromani/Target_MVD_Api/vendor/bundle/gems/json-2.2.0/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/tromani/Target_MVD_Api/vendor/bundle/gems/json-2.2.0/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/tromani/Target_MVD_Api/vendor/bundle/gems/json-2.2.0/ext/json
+make "DESTDIR=" install
