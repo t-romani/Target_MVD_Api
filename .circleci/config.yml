@@ -7,12 +7,19 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/ruby:2.4.1-node-browsers
-
+      - image: circleci/ruby:2.6.3-node-browsers
+        environment:
+          PGHOST: localhost
+          PGUSER: postgres
+          RAILS_ENV: test
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
+      - image: circleci/postgres:9.4
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: target_MVD_development
+          POSTGRES_PASSWORD: "root"
 
     working_directory: ~/repo
 
@@ -25,6 +32,14 @@ jobs:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
+
+      # update bundler
+      - run:
+          name: Configure Bundler
+          command: |
+           echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+           source $BASH_ENV
+           gem install bundler
 
       - run:
           name: install dependencies
@@ -43,17 +58,7 @@ jobs:
       # run tests!
       - run:
           name: run tests
-          command: |
-            mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
-              circleci tests split --split-by=timings)"
-
-            bundle exec rspec \
-              --format progress \
-              --format RspecJunitFormatter \
-              --out /tmp/test-results/rspec.xml \
-              --format progress \
-              $TEST_FILES
+          command: bundle exec rspec 
 
       # collect reports
       - store_test_results:
