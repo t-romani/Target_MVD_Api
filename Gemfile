@@ -3,17 +3,18 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
-
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'brakeman', '~> 4.6', '>= 4.6.1'
 gem 'devise', '~> 4.6', '>= 4.6.2'
 gem 'devise_token_auth', '~> 1.1'
+gem 'figaro', '~> 1.1', '>= 1.1.1'
+gem 'jbuilder', '~> 2.9', '>= 2.9.1'
+gem 'pg', '~> 1.1', '>= 1.1.4'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.3'
 gem 'rails_best_practices', '~> 1.19', '>= 1.19.4'
 gem 'reek', '~> 5.4'
 gem 'rubocop', '~> 0.74.0'
-gem 'pg', '~> 1.1', '>= 1.1.4'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -40,6 +41,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'annotate', '~> 2.7.5'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
