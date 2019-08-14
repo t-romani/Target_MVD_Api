@@ -18,8 +18,9 @@ RSpec.describe User, :type => :model do
 
     it 'has a unique (uid,provider)' do
       user2 = build(:user, email: 'test_user1@example.com')
-      expect([@user1.uid, @user1.provider]).to_not eq [user2.uid,
-                                                       user2.provider]
+      expect([@user1.uid, @user1.provider]).to_not eq [
+        user2.uid, user2.provider
+      ]
     end
   end
 
