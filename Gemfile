@@ -43,6 +43,7 @@ end
 
 group :test do
   gem 'database_cleaner', '~> 1.7'
+  gem 'rspec-json_expectations'
 end
 
 group :development do
