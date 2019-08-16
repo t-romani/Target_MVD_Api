@@ -9,7 +9,6 @@ describe 'POST #create sign_in', type: :request do
 
   context 'when valid' do
     let(:password) { 'example' }
-
     context 'when registered and confirmed' do
       let!(:user) { create(:user, :confirmed, password: password) }
 
