@@ -16,7 +16,7 @@ RSpec.describe 'POST #create sign_up', type: :request do
       expect { subject }.to change { User.count }.by(1)
     end
 
-    it 'the attributes from params persist on db' do
+    it 'returns the user created' do
       subject
       expect(response.body).to include_json(
         user: {
@@ -57,14 +57,14 @@ RSpec.describe 'POST #create sign_up', type: :request do
     context 'when invalid password' do
       it '(different) it does not create a new user' do
         user_params[:user][:password] = 'password'
-        user_params[:user][:password] = 'different'
+        user_params[:user][:password_confirmation] = 'different'
         subject
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it '(short) it does not create a new user' do
         user_params[:user][:password] = 'short'
-        user_params[:user][:password] = 'short'
+        user_params[:user][:password_confirmation] = 'short'
         subject
         expect(response).not_to be_successful
       end

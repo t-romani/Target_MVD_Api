@@ -42,11 +42,7 @@ class User < ApplicationRecord
   before_validation :init_uid
 
   validates :email, presence: true, uniqueness: true
-  validates :full_name, presence: true
-  validates :gender, presence: true
-  validates :encrypted_password, presence: true
-  validates :uid, presence: true, uniqueness: { scope: [:provider] }
-  validates :provider, presence: true
+  validates :full_name, :gender, presence: true
 
   private
 
