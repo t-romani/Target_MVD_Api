@@ -43,7 +43,9 @@ group :development, :test do
 end
 
 group :test do
+  gem 'faker', '~> 2.1', '>= 2.1.2'
   gem 'rspec-json_expectations'
+  gem 'shoulda-matchers'
 end
 
 group :development do
@@ -53,5 +55,3 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
-
-
