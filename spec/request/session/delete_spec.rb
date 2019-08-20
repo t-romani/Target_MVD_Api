@@ -5,7 +5,7 @@ describe 'POST #delete sign_out', type: :request do
   let!(:user)           { create(:user, :confirmed) }
 
   subject do
-    delete destroy_api_v1_user_session_path, headers: auth_headers, as: :json
+    delete destroy_user_session_path, headers: auth_headers, as: :json
   end
 
   context 'when valid' do
