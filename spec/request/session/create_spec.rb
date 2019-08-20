@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'POST #create sign_in', type: :request do
   subject do
-    post api_v1_user_session_path, params: {
+    post user_session_path, params: {
       email: user[:email], password: password
     }, as: :json
   end

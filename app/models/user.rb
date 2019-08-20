@@ -45,6 +45,7 @@ class User < ApplicationRecord
     scope: :provider, case_sensitive: false
   }
   validates :full_name, :gender, presence: true
+  validates :gender, inclusion: { in: genders }
 
   private
 
