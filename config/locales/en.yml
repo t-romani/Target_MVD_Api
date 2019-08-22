@@ -31,3 +31,9 @@
 
 en:
   hello: "Hello world"
+  api:
+    error: 
+      invalid_request:
+        content_type: 'Invalid Content Type'
+          
+    

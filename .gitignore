@@ -26,4 +26,7 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /config/application.yml
+/config/database.yml
+
+# Ignore vendor folder/*
 /vendor/*
