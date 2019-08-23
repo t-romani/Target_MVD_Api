@@ -46,8 +46,8 @@ describe 'POST #create sign_up', type: :request do
         end
 
         it 'returns error message' do
-          @data = JSON.parse(response.body)
-          expect(@data['errors']['full_messages'].first).to eq(
+          data = JSON.parse(response.body)
+          expect(data['errors']['full_messages'].first).to eq(
             'Email can\'t be blank'
           )
         end
@@ -68,8 +68,8 @@ describe 'POST #create sign_up', type: :request do
         end
 
         it 'returns error message' do
-          @data = JSON.parse(response.body)
-          expect(@data['errors']['full_messages'].first).to eq(
+          data = JSON.parse(response.body)
+          expect(data['errors']['full_messages'].first).to eq(
             'Password can\'t be blank'
           )
         end
@@ -90,8 +90,8 @@ describe 'POST #create sign_up', type: :request do
         end
 
         it 'returns error message' do
-          @data = JSON.parse(response.body)
-          expect(@data['errors']['full_messages'].first).to eq(
+          data = JSON.parse(response.body)
+          expect(data['errors']['full_messages'].first).to eq(
             'Gender can\'t be blank'
           )
         end
@@ -111,8 +111,8 @@ describe 'POST #create sign_up', type: :request do
         end
 
         it 'returns error message' do
-          @data = JSON.parse(response.body)
-          expect(@data['errors']['full_messages'].first).to eq(
+          data = JSON.parse(response.body)
+          expect(data['errors']['full_messages'].first).to eq(
             'Full name can\'t be blank'
           )
         end
