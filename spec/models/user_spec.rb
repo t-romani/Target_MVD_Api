@@ -6,12 +6,6 @@ describe User, :type => :model do
     it { should validate_presence_of(:email) }
     it { should validate_presence_of(:gender) }
     it { should validate_presence_of(:full_name) }
-  end
-
-  describe 'email uniqueness' do
-    it 'should not be valid' do
-      user1 = create(:user)
-      expect(subject).to_not be_valid
-    end
+    it { should validate_uniqueness_of(:email).scoped_to(:provider).ignoring_case_sensitivity}
   end
 end

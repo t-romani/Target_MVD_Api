@@ -20,7 +20,8 @@ describe 'POST #create sign_in', type: :request do
       end
 
       it 'does create a new session' do
-        expect { subject }.to(change { User.last.current_sign_in_at })
+        subject
+        expect(response.headers['client']).to eq(User.last.tokens.keys.first)
       end
     end
   end
@@ -30,28 +31,27 @@ describe 'POST #create sign_in', type: :request do
       let(:password) { 'example' }
       let!(:user) { create(:user, password: password) }
 
-      it 'does not get a sucessful answer' do
+      it 'gets an unauthorized status' do
         subject
-        expect(response).not_to be_successful
+        expect(response).to have_http_status(:unauthorized)
       end
+
       it 'does not sign_in' do
-        subject
-        expect { subject }.not_to(change { User.last.current_sign_in_at })
+        expect { subject }.not_to change(User.last.tokens, :size)
       end
     end
 
     context 'when registered and confirmed but invalid credentials' do
-      let!(:user) { create(:confirmed_user) }
+      let!(:user) { create(:user, :confirmed) }
       let(:password) { 'another' }
 
       it 'does not get a sucessful answer' do
         subject
-        expect(response).not_to be_successful
+        expect(response).to have_http_status(:unauthorized)
       end
 
       it 'does not sign_in' do
-        subject
-        expect { response }.not_to(change { User.last.current_sign_in_at })
+        expect { subject }.not_to change(User.last.tokens, :size)
       end
     end
   end

@@ -41,7 +41,9 @@ class User < ApplicationRecord
 
   before_validation :init_uid
 
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: {
+    scope: :provider, case_sensitive: false
+  }
   validates :full_name, :gender, presence: true
 
   private

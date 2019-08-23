@@ -8,7 +8,5 @@ FactoryBot.define do
     trait :confirmed do
       after :create, &:confirm
     end
-
-    factory :confirmed_user, traits: [:confirmed]
   end
 end
