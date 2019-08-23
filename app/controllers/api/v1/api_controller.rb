@@ -4,7 +4,7 @@ module Api
       include ActAsApi
       include DeviseTokenAuth::Concerns::SetUserByToken
 
-      before_action :authenticate_user!, except: %i[new create]
+      before_action :authenticate_user!, except: %i[create]
 
       rescue_from ArgumentError, with:
         :render_error_response

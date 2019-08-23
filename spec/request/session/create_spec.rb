@@ -10,7 +10,7 @@ describe 'POST #create sign_in', type: :request do
   context 'when valid' do
     let(:password) { 'example' }
     context 'when registered and confirmed' do
-      let!(:user) { create(:user, :confirmed, password: password) }
+      let!(:user) { create(:user, password: password) }
 
       it 'does get a sucessful answer' do
         subject
@@ -28,6 +28,9 @@ describe 'POST #create sign_in', type: :request do
     context 'when registered and not confirmed' do
       let(:password)  { 'example' }
       let!(:user)     { create(:user, password: password) }
+      before do
+        user.update(confirmed_at: nil)
+      end
 
       it 'gets an unauthorized status' do
         subject
@@ -40,7 +43,7 @@ describe 'POST #create sign_in', type: :request do
     end
 
     context 'when registered and confirmed but invalid credentials' do
-      let!(:user) { create(:user, :confirmed) }
+      let!(:user) { create(:user) }
       let(:password) { 'another' }
 
       it 'does not get a sucessful answer' do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'POST #delete sign_out', type: :request do
   let!(:user_attrs)     { { user: attributes_for(:user) } }
-  let!(:user)           { create(:user, :confirmed) }
+  let!(:user)           { create(:user) }
 
   subject do
     delete destroy_user_session_path, headers: auth_headers, as: :json
