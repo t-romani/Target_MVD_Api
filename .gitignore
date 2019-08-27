@@ -31,5 +31,5 @@
 # Ignore vendor folder/*
 /vendor/*
 
-# Ignore DS_Store/*
+# Ignore DS Store files
 .DS_Store
