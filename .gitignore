@@ -30,3 +30,6 @@
 
 # Ignore vendor folder/*
 /vendor/*
+
+# Ignore DS_Store/*
+.DS_Store

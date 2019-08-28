@@ -35,5 +35,8 @@ en:
     error: 
       invalid_request:
         content_type: 'Invalid Content Type'
+  mailer:
+    confirmation:
+      title: "Welcome %{email}!"
           
     
