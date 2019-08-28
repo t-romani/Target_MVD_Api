@@ -1,16 +1,15 @@
 require 'rails_helper'
 
 describe 'POST #create sign_in', type: :request do
-  let!(:user_attrs) { { user: attributes_for(:user) } }
-
   subject do
     post api_v1_user_session_path, params: {
-      email: user_attrs[:user][:email], password: password
+      email: user[:email], password: password
     }, as: :json
   end
 
   context 'when valid' do
     let(:password) { 'example' }
+
     context 'when registered and confirmed' do
       let!(:user) { create(:user, :confirmed, password: password) }
 
@@ -28,8 +27,8 @@ describe 'POST #create sign_in', type: :request do
 
   context 'when invalid' do
     context 'when registered and not confirmed' do
-      let(:password) { 'example' }
-      let!(:user) { create(:user, password: password) }
+      let(:password)  { 'example' }
+      let!(:user)     { create(:user, password: password) }
 
       it 'gets an unauthorized status' do
         subject

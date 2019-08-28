@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :user do
-    email     { 'test_user@example.com' }
+    email     { Faker::Internet.email }
     password  { Faker::Internet.password }
     full_name { Faker::Name.name_with_middle }
-    gender    { 2 }
+    gender    { User.genders.keys.sample }
 
     trait :confirmed do
       after :create, &:confirm
