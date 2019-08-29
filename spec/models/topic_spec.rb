@@ -16,19 +16,16 @@ require 'rails_helper'
 describe Topic, type: :model do
   subject { build(:topic) }
 
-  describe 'presence validations' do
-    it { should validate_presence_of(:title) }
+  describe 'validations' do
+    it { is_expected.to  validate_presence_of(:title) }
+    it { is_expected.to  validate_uniqueness_of(:title).ignoring_case_sensitivity }
 
     context 'when image is nil' do
-      let!(:topic) { build(:topic, image: nil) }
+      let!(:topic) { create(:topic, image: nil) }
 
-      it 'isnt valid' do
-        expect(topic).not_to be_valid
+      it 'has default image' do
+        expect(topic.image.attached?).to eq(true)
       end
     end
-  end
-
-  describe 'uniqueness' do
-    it { should validate_uniqueness_of(:title) }
   end
 end

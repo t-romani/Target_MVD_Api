@@ -17,13 +17,16 @@ class Topic < ApplicationRecord
 
   has_one_base64_attached :image
 
-  validates :title, presence: true, uniqueness: true
-  validate :image_presence
+  validates :title, presence: true, uniqueness: { case_sensitive: false }
 
-  def image_presence
-    errors.add(:attached_image, 'no image added') unless image.attached?
+  before_save :add_default_image, on: %i[create]
+
+  def add_default_image
+    return if image.attached?
+
+    image.attach(
+      io: File.open(Rails.root.join('public', 'images', 'no_image_av.png')),
+      filename: 'no_image_av.png', content_type: 'image/png'
+    )
   end
-
-  # include ActiveStorageValidations::AttachedValidator
-  # validates :image, attached: true
 end
