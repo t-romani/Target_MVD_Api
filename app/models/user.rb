@@ -47,6 +47,8 @@ class User < ApplicationRecord
   validates :full_name, :gender, presence: true
   validates :gender, inclusion: { in: genders }
 
+  has_many :targets, dependent: :destroy
+
   private
 
   def init_uid
