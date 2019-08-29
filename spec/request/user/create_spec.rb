@@ -4,7 +4,7 @@ describe 'POST #create sign_up', type: :request do
   let!(:user_params) { { user: attributes_for(:user) } }
   let(:user) { User.last }
   subject do
-    post api_v1_user_registration_path, params: user_params, as: :json
+    post user_registration_path, params: user_params, as: :json
   end
 
   context 'when valid' do
