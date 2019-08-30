@@ -3,10 +3,5 @@ def auth_user_headers
 end
 
 def parsed_data
-<<<<<<< HEAD
   JSON.parse(response.body)
 end
-=======
-  data = JSON.parse(response.body)
-end
->>>>>>> cf90f2f... PR5 fixes
