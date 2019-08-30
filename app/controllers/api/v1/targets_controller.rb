@@ -9,7 +9,7 @@ module Api
       end
 
       def index
-        @targets = user.targets.index
+        @targets = user.targets
       end
 
       def user

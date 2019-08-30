@@ -50,8 +50,6 @@ describe 'POST #create target', type: :request do
 
     context 'when missing argument' do
       context 'title' do
-        let(:data) { parsed_data}
-
         before do
           target_params[:target][:title] = nil
         end
