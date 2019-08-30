@@ -10,9 +10,17 @@ module Api
         :render_error_response
       rescue_from ActiveRecord::RecordInvalid, with:
         :render_error_response
+      rescue_from ActiveRecord::RecordNotFound, with:
+        :render_not_found_response
 
       def render_error_response(error)
         render json: { error: error }, status: 400
+      end
+
+      def render_not_found_response
+        render json: { error: I18n.t(
+          'api.error.invalid_request.content_not_found'
+        ) }, status: :not_found
       end
     end
   end

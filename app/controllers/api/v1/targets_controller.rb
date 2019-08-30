@@ -1,19 +1,27 @@
 module Api
   module V1
     class TargetsController < Api::V1::ApiController
-      helper_method :user
+      helper_method :user, :targets
 
       def create
-        @target = user.targets.create!(target_params)
+        @target = targets.create!(target_params)
         render :show
       end
 
       def index
-        @targets = user.targets
+        targets
+      end
+
+      def destroy
+        targets.find(params[:id]).destroy!
       end
 
       def user
         @user ||= current_user
+      end
+
+      def targets
+        @targets ||= user.targets
       end
 
       private
