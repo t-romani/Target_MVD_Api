@@ -22,6 +22,11 @@ module Api
           'api.error.invalid_request.content_not_found'
         ) }, status: :not_found
       end
+
+      def render_not_found_response(error)
+        render json: { error: I18n.t('api.error.invalid_request.content_not_found')
+          }, status: 404
+      end
     end
   end
 end
