@@ -20,6 +20,11 @@ module Api
         user.targets.find(params[:id]).destroy!
       end
 
+      def destroy
+        @target = user.targets.find(params[:id])
+        @target.destroy
+      end
+
       def user
         @user ||= current_user
       end
