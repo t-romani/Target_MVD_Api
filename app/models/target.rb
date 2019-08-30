@@ -28,7 +28,7 @@ class Target < ApplicationRecord
   belongs_to :topic
   belongs_to :user
 
-  validates :latitude, :longitude, :radius, :topic_id, :user_id, presence: true
+  validates :latitude, :longitude, :radius, presence: true
   validates :title, presence: true, uniqueness: {
     scope: %i[topic_id user_id], case_sensitive: false
   }

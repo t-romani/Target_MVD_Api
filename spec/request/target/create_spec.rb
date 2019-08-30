@@ -4,13 +4,13 @@ describe 'POST #create target', type: :request do
   let!(:user)           { create(:user) }
   let!(:auth_headers)   { auth_user_headers }
   let!(:topic)          { create(:topic) }
-  let!(:target_params)  {
+  let!(:target_params)  do
     {
       target: attributes_for(:target,
                              user_id: user.id,
                              topic_id: topic.id)
     }
-  }
+  end
 
   subject do
     post api_v1_targets_path, params: target_params,
@@ -61,34 +61,8 @@ describe 'POST #create target', type: :request do
 
         it 'returns error message' do
           subject
-          data = JSON.parse(response.body) ######CAMBIAR DESPUES DEL REBASE
-          expect(data['error']).to eq(
-            'Validation failed: Title can\'t be blank'
-          )
-        end
-
-        it 'does not create the target' do
-          expect { subject }.not_to change(Target, :count)
-        end
-      end
-    end
-
-    context 'when invalid argument' do
-      context 'inexistant user id' do
-        before do
-          target_params[:target][:user_id] = -1
-        end
-
-        it 'gets an bad request response' do
-          subject
-          expect(response).to have_http_status(:bad_request)
-        end
-
-        it 'returns error message' do
-          subject
-          data = JSON.parse(response.body) ######CAMBIAR DESPUES DEL REBASE
-          expect(data['error']).to eq(
-            'Validation failed: User must exist'
+          expect(parsed_data['error']).to eq(
+            "Validation failed: Title can't be blank"
           )
         end
 

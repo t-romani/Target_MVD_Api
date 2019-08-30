@@ -4,8 +4,7 @@ module Api
       helper_method :user
 
       def create
-        @target = Target.create! target_params
-        @target.save
+        @target = user.targets.create!(target_params)
         render :show
       end
 
@@ -18,7 +17,6 @@ module Api
       def target_params
         params.require(:target).permit(
           :topic_id,
-          :user_id,
           :title,
           :radius,
           :latitude,
