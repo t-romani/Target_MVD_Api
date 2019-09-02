@@ -1,0 +1,1 @@
+class TargetLimitReached < StandardError; end

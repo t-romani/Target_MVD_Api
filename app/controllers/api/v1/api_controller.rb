@@ -1,3 +1,4 @@
+require_relative '../../../errors/TargetLimitReached'
 module Api
   module V1
     class ApiController < ApplicationController
@@ -12,20 +13,23 @@ module Api
         :render_error_response
       rescue_from ActiveRecord::RecordNotFound, with:
         :render_not_found_response
+      rescue_from TargetLimitReached, with:
+        :render_max_target_limit
 
       def render_error_response(error)
         render json: { error: error }, status: :bad_request
       end
 
       def render_not_found_response
-        render json: { error: I18n.t(
-          'api.error.invalid_request.content_not_found'
-        ) }, status: :not_found
+        render json: { error: I18n
+          .t('api.error.invalid_request.content_not_found') },
+               status: :not_found
       end
 
-      def render_not_found_response(error)
-        render json: { error: I18n.t('api.error.invalid_request.content_not_found')
-          }, status: 404
+      def render_max_target_limit
+        render json: { error: I18n
+          .t('api.error.invalid_request.max_target_limit') },
+               status: :forbidden
       end
     end
   end
