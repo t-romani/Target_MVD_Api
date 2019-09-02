@@ -64,7 +64,6 @@ describe 'POST #create target', type: :request do
             "Validation failed: Title can't be blank"
           )
         end
-<<<<<<< HEAD
 
         it 'does not create the target' do
           expect { subject }.not_to change(Target, :count)
@@ -81,8 +80,6 @@ describe 'POST #create target', type: :request do
       it 'gets a bad_request response' do
         expect(response).to have_http_status(:bad_request)
       end
-=======
->>>>>>> 6434290... PR6 fixes
 
       it 'returns limit error' do
         expect(parsed_data['error'])
