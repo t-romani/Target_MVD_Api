@@ -1,3 +1,4 @@
+require_relative '../../../errors/TargetLimitReached'
 module Api
   module V1
     class ApiController < ApplicationController
@@ -12,9 +13,11 @@ module Api
         :render_error_response
       rescue_from ActiveRecord::RecordNotFound, with:
         :render_not_found_response
+      rescue_from TargetLimitReached, with:
+        :render_max_target_limit
 
       def render_error_response(error)
-        render json: { error: error }, status: 400
+        render json: { error: error }, status: :bad_request
       end
 
       def render_not_found_response

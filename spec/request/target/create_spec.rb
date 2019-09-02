@@ -4,10 +4,9 @@ describe 'POST #create target', type: :request do
   let!(:user)           { create(:user) }
   let!(:auth_headers)   { auth_user_headers }
   let!(:topic)          { create(:topic) }
-  let!(:target_params)  do
+  let(:target_params) do
     {
       target: attributes_for(:target,
-                             user_id: user.id,
                              topic_id: topic.id)
     }
   end
@@ -69,6 +68,25 @@ describe 'POST #create target', type: :request do
         it 'does not create the target' do
           expect { subject }.not_to change(Target, :count)
         end
+      end
+    end
+
+    context 'when limit reached' do
+      before do
+        10.times do
+          user.targets.create!(attributes_for(:target, topic_id: topic.id))
+        end
+      end
+
+      it 'gets an forbidden response' do
+        subject
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it 'returns limit error' do
+        subject
+        expect(parsed_data['error'])
+          .to eq('Unable to create target, limit reached.')
       end
     end
   end

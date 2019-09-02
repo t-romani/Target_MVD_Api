@@ -32,4 +32,12 @@ class Target < ApplicationRecord
   validates :title, presence: true, uniqueness: {
     scope: %i[topic_id user_id], case_sensitive: false
   }
+
+  before_save :limit_number_of_targets
+
+  private
+
+  def limit_number_of_targets
+    raise TargetLimitReached if user.targets.size >= 10
+  end
 end

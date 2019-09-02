@@ -36,6 +36,7 @@ en:
       invalid_request:
         content_type: 'Invalid Content Type'
         content_not_found: "Couldn't find the record"
+        max_target_limit: 'Unable to create target, limit reached.'
   mailer:
     confirmation:
       title: "Welcome %{email}!"
