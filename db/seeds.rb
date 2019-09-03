@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+titles = ['The Pragmatic Programmer', 'The Stupendous Origin', 'The Awakening of the Sencha']
+titles.each do |title|
+  t = Topic.find_or_create_by(title: title)
+end
