@@ -10,7 +10,9 @@ Rails.application.routes.draw do
       devise_scope :user do
         resources :users, only: :update
         resources :topics, only: :index
+        resources :targets, only: :create
       end
     end
   end
+
 end

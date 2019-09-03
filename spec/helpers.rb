@@ -3,5 +3,5 @@ def auth_user_headers
 end
 
 def parsed_data
-  data = JSON.parse(response.body)
+  JSON.parse(response.body)
 end
