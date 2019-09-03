@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2019_08_27_162435) do
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
+    t.boolean "allow_password_change", default: false, null: false
     t.datetime "remember_created_at"
     t.integer "gender", default: 2, null: false
     t.string "full_name", null: false
@@ -85,6 +86,4 @@ ActiveRecord::Schema.define(version: 2019_08_27_162435) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "targets", "topics"
-  add_foreign_key "targets", "users"
 end

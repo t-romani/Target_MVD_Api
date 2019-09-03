@@ -1,1 +1,0 @@
-class TargetLimitReached < StandardError; end

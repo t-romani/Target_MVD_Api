@@ -18,11 +18,6 @@
 #  index_targets_on_topic_id_and_title_and_user_id  (topic_id,title,user_id) UNIQUE
 #  index_targets_on_user_id                         (user_id)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (topic_id => topics.id)
-#  fk_rails_...  (user_id => users.id)
-#
 
 class Target < ApplicationRecord
   belongs_to :topic
