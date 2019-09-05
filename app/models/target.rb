@@ -33,11 +33,14 @@ class Target < ApplicationRecord
     scope: %i[topic_id user_id], case_sensitive: false
   }
 
-  before_save :limit_number_of_targets
+  validate :limit_number_of_targets
 
   private
 
   def limit_number_of_targets
-    raise TargetLimitReached if user.targets.size >= 10
+    return if user && user.targets.count < 10
+
+    errors.add(:base, I18n
+      .t('api.error.invalid_request.max_target_limit'))
   end
 end

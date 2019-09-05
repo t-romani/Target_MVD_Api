@@ -53,7 +53,7 @@ describe 'POST #create target', type: :request do
           target_params[:target][:title] = nil
         end
 
-        it 'gets an bad request response' do
+        it 'gets a bad request response' do
           subject
           expect(response).to have_http_status(:bad_request)
         end
@@ -73,20 +73,17 @@ describe 'POST #create target', type: :request do
 
     context 'when limit reached' do
       before do
-        10.times do
-          user.targets.create!(attributes_for(:target, topic_id: topic.id))
-        end
+        create_list(:target, 10, user: user, topic: topic)
+        subject
       end
 
-      it 'gets an forbidden response' do
-        subject
-        expect(response).to have_http_status(:forbidden)
+      it 'gets a bad_request response' do
+        expect(response).to have_http_status(:bad_request)
       end
 
       it 'returns limit error' do
-        subject
         expect(parsed_data['error'])
-          .to eq('Unable to create target, limit reached.')
+          .to eq('Validation failed: Unable to create target, limit reached.')
       end
     end
   end
