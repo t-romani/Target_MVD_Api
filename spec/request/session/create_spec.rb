@@ -21,6 +21,10 @@ describe 'POST #create sign_in', type: :request do
         subject
         expect(response.headers['client']).to eq(User.last.tokens.keys.first)
       end
+
+      it 'creates player_id' do
+        expect { subject }.to(change { user.reload.player_id })
+      end
     end
   end
 
