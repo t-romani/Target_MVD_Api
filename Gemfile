@@ -5,6 +5,7 @@ ruby '2.6.3'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'brakeman', '~> 4.6', '>= 4.6.1'
+gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.4'
 gem 'devise', '~> 4.6', '>= 4.6.2'
 gem 'devise_token_auth', '~> 1.1'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
@@ -48,6 +49,7 @@ group :test do
   gem 'faker', '~> 2.1', '>= 2.1.2'
   gem 'rspec-json_expectations', '~> 2.2'
   gem 'shoulda-matchers', '~> 4.1', '>= 4.1.2'
+  gem 'webmock', '~> 3.7', '>= 3.7.2'
 end
 
 group :development do

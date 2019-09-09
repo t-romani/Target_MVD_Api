@@ -30,12 +30,39 @@ class Target < ApplicationRecord
 
   validate :limit_number_of_targets
 
+  reverse_geocoded_by :latitude, :longitude
+
+  after_create :check_matching_targets
+
   private
 
   def limit_number_of_targets
     return if user && user.targets.count < 10
 
-    errors.add(:base, I18n
-      .t('api.error.invalid_request.max_target_limit'))
+    errors.add(:base,
+               I18n.t('api.error.invalid_request.max_target_limit'))
+  end
+
+  def check_matching_targets
+    matching_users = []
+    Target.where("user_id != #{user.id}").map do |each_target|
+      matching_users.push(each_target.user) if
+      matchs?(matching_users, each_target)
+    end
+
+    return if matching_users.empty?
+
+    matching_users.push(user)
+    notificate_users(matching_users)
+  end
+
+  def notificate_users(matching_users)
+    NotifyRequestJob.perform_later(matching_users)
+  end
+
+  def matchs?(matching_users, target)
+    target.topic_id == topic_id &&
+      matching_users.exclude?(target.user) &&
+      distance_to(target) <= radius + target.radius
   end
 end
