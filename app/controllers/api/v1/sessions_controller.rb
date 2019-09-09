@@ -8,12 +8,16 @@ module Api
       end
 
       def render_create_success
-        set_user_player_id if current_user.player_id.nil?
+        set_player_id
         render json: { user: resource_data }
       end
 
-      def set_user_player_id
-        NotificationSenderService.new.session_update(current_user)
+      private
+
+      def set_player_id
+        return if current_user.player_id.present?
+
+        NotificationService.new(current_user, nil).set_id
       end
     end
   end

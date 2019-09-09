@@ -4,7 +4,7 @@ describe 'POST #create target', type: :request do
   let!(:user)           { create(:user) }
   let!(:auth_headers)   { auth_user_headers }
   let!(:topic)          { create(:topic) }
-  let(:target_params) do
+  let!(:target_params) do
     {
       target: attributes_for(:target,
                              topic_id: topic.id)
@@ -30,6 +30,30 @@ describe 'POST #create target', type: :request do
     it 'belongs to the user' do
       subject
       expect(Target.last.user_id).to eq(user.id)
+    end
+
+    context 'when 2 targets are compatible' do
+      let!(:another_user)   { create(:user) }
+      let!(:another_target) do
+        create(:target,
+               topic_id: topic.id,
+               user: another_user,
+               latitude: target_params[:target][:latitude],
+               longitude: target_params[:target][:longitude])
+      end
+
+      before do
+        WebMock.stub_request(:post, 'https://onesignal.com/api/v1/notifications')
+               .to_return(status: 200,
+                          body: File.new(
+                            'spec/support/fixtures/new_target_match_success.json'
+                          ))
+      end
+
+      it 'calls notification service function' do
+        subject
+        expect(NotifyRequestJob).to have_been_enqueued
+      end
     end
   end
 
