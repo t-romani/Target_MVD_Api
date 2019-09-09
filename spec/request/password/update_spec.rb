@@ -13,21 +13,21 @@ describe 'PUT #update password', type: :request do
   end
 
   context 'when valid' do
-    it 'return ok status' do
+    it 'returns ok status' do
       subject
-      expect(response).to have_http_status(:ok)
+      expect(response).to be_successful
     end
 
-    it 'returns success message' do
+    it 'returns correct user' do
       subject
-      expect(parsed_data['success']).to eq(true)
+      expect(parsed_data['user']['id']).to eq(user.id)
     end
   end
 
   context 'when invalid' do
     let!(:auth_headers) { {} }
 
-    it 'return unauthorized status' do
+    it 'returns unauthorized status' do
       subject
       expect(response).to have_http_status(:unauthorized)
     end

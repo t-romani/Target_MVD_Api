@@ -11,7 +11,7 @@ describe 'POST #update password', type: :request do
 
   it 'returns ok status' do
     subject
-    expect(response).to have_http_status(:ok)
+    expect(response).to be_successful
   end
 
   it 'returns success message' do
@@ -23,7 +23,7 @@ describe 'POST #update password', type: :request do
     expect { subject }.to(change { User.last.reset_password_token })
   end
 
-  it 'sends email' do
+  it 'sends an email' do
     expect(ActionMailer::Base.deliveries.count(1))
   end
 end
