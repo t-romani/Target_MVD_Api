@@ -18,9 +18,10 @@ module Api
       end
 
       def render_not_found_response
-        render json: { error: I18n.t(
-          'api.error.invalid_request.content_not_found'
-        ) }, status: :not_found
+        render json: {
+          error: I18n.t('api.error.invalid_request.content_not_found')
+        },
+               status: :not_found
       end
     end
   end
