@@ -35,6 +35,7 @@ en:
     error: 
       invalid_request:
         content_type: 'Invalid Content Type'
+        content_not_found: "Couldn't find the record"
   mailer:
     confirmation:
       title: "Welcome %{email}!"
