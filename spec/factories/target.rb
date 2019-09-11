@@ -26,7 +26,9 @@
 
 FactoryBot.define do
   factory :target do
-    title     { Faker::Book.title }
+    sequence :title do |n|
+      "title#{n}"
+    end
     latitude  { Faker::Address.latitude }
     longitude { Faker::Address.longitude }
     radius    { Faker::Number.between(from: 50, to: 1000) }

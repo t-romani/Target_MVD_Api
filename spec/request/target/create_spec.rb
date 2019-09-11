@@ -4,10 +4,9 @@ describe 'POST #create target', type: :request do
   let!(:user)           { create(:user) }
   let!(:auth_headers)   { auth_user_headers }
   let!(:topic)          { create(:topic) }
-  let!(:target_params)  do
+  let(:target_params) do
     {
       target: attributes_for(:target,
-                             user_id: user.id,
                              topic_id: topic.id)
     }
   end
@@ -54,7 +53,7 @@ describe 'POST #create target', type: :request do
           target_params[:target][:title] = nil
         end
 
-        it 'gets an bad request response' do
+        it 'gets a bad request response' do
           subject
           expect(response).to have_http_status(:bad_request)
         end
@@ -69,6 +68,22 @@ describe 'POST #create target', type: :request do
         it 'does not create the target' do
           expect { subject }.not_to change(Target, :count)
         end
+      end
+    end
+
+    context 'when limit reached' do
+      before do
+        create_list(:target, 10, user: user, topic: topic)
+        subject
+      end
+
+      it 'gets a bad_request response' do
+        expect(response).to have_http_status(:bad_request)
+      end
+
+      it 'returns limit error' do
+        expect(parsed_data['error'])
+          .to eq('Validation failed: Unable to create target, limit reached.')
       end
     end
   end

@@ -14,7 +14,7 @@ module Api
         :render_not_found_response
 
       def render_error_response(error)
-        render json: { error: error }, status: 400
+        render json: { error: error }, status: :bad_request
       end
 
       def render_not_found_response

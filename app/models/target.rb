@@ -32,4 +32,15 @@ class Target < ApplicationRecord
   validates :title, presence: true, uniqueness: {
     scope: %i[topic_id user_id], case_sensitive: false
   }
+
+  validate :limit_number_of_targets
+
+  private
+
+  def limit_number_of_targets
+    return if user && user.targets.count < 10
+
+    errors.add(:base, I18n
+      .t('api.error.invalid_request.max_target_limit'))
+  end
 end
