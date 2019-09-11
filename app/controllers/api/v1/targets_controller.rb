@@ -8,6 +8,10 @@ module Api
         render :show
       end
 
+      def index
+        @targets = user.targets
+      end
+
       def user
         @user ||= current_user
       end
