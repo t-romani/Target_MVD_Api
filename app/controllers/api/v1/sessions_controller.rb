@@ -17,7 +17,7 @@ module Api
       def set_player_id
         return if current_user.player_id.present?
 
-        NotificationService.new(current_user, nil).set_id
+        NotificationService.new(current_user).set_id
       end
     end
   end

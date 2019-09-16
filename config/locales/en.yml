@@ -41,6 +41,8 @@ en:
       matched_target:
         subject: 'New Match!'
         body: 'You have matched another Target!'
+      new_message:
+        subject: 'New message!'
     messages:
       target_match: 'You have a new match!'
   mailer:

@@ -1,9 +1,11 @@
 class NotificationService
-  attr_accessor :user, :matching_users
+  attr_accessor :user, :matching_users, :text
+  ONE_SIGNAL_APP_ID = ENV['ONE_SIGNAL_APP_ID']
 
-  def initialize(user, matching_users)
+  def initialize(user, matching_users = nil, text = nil)
     @user = user
     @matching_users = matching_users
+    @text = text
   end
 
   def notify
@@ -25,7 +27,11 @@ class NotificationService
     player_ids = matching_users.map(&:player_id)
 
     uri = URI.parse(ENV['ONE_SIGNAL_NOTIFY_URL'])
-    params = target_match_request_params(player_ids)
+    params = if text.present?
+               msg_request_params(player_ids, text)
+             else
+               target_match_request_params(player_ids)
+             end
     send_request(uri, params)
   end
 
@@ -42,7 +48,7 @@ class NotificationService
   def email_create_params(email_auth_hash)
     {
       device_type: 11,
-      app_id: ENV['ONE_SIGNAL_APP_ID'],
+      app_id: ONE_SIGNAL_APP_ID,
       identifier: user.email,
       email_auth_hash: email_auth_hash
     }
@@ -55,11 +61,18 @@ class NotificationService
 
   def target_match_request_params(player_ids)
     {
-      app_id: ENV['ONE_SIGNAL_APP_ID'],
+      app_id: ONE_SIGNAL_APP_ID,
       email_subject: I18n.t('api.email.matched_target.subject'),
       email_body: I18n.t('api.email.matched_target.body'),
       include_player_ids: player_ids
     }
+  end
+
+  def msg_request_params(player_ids, text)
+    { 'app_id' => ONE_SIGNAL_APP_ID,
+      'email_subject' => I18n.t('api.email.new_message.subject'),
+      'email_body' => text,
+      'include_player_ids' => player_ids }
   end
 
   def send_request(uri, params)
