@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         resources :users, only: :update
         resources :topics, only: :index
         resources :targets, only: %i[create index destroy]
+        resources :conversations, only: :index
       end
     end
   end

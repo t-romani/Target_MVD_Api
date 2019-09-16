@@ -34,4 +34,77 @@ describe Target, type: :model do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:topic) }
   end
+
+  describe 'methods' do
+    let!(:second_user)     { create(:user) }
+    let!(:topic)           { create(:topic) }
+    let!(:target_params)   { attributes_for(:target) }
+    let!(:second_target) do
+      create(:target, user: second_user, topic: topic,
+                      radius: 0,
+                      latitude: target_params[:latitude],
+                      longitude: target_params[:longitude])
+    end
+
+    describe '.check_matching_targets' do
+      context 'when targets match' do
+        subject do
+          create(:target, user: user, topic: topic,
+                          latitude: target_params[:latitude],
+                          longitude: target_params[:longitude])
+        end
+
+        it 'calls for notification job' do
+          ActiveJob::Base.queue_adapter = :test
+          subject
+          expect(NotifyRequestJob).to have_been_enqueued
+        end
+      end
+
+      context 'when targets dont match' do
+        subject do
+          create(:target, user: user, topic: topic,
+                          radius: 0,
+                          latitude: target_params[:latitude] + 10,
+                          longitude: target_params[:longitude] + 10)
+        end
+
+        it 'returns without calling any jobs' do
+          ActiveJob::Base.queue_adapter = :test
+          subject
+          expect(NotifyRequestJob).not_to(have_been_enqueued)
+        end
+      end
+    end
+
+    describe '.matches?' do
+      context 'when targets match' do
+        let(:args) { [[], second_target] }
+
+        subject do
+          build(:target, latitude: target_params[:latitude],
+                         longitude: target_params[:longitude],
+                         user: user, topic: topic)
+        end
+
+        it 'returns true' do
+          expect(subject.send(:matches?, *args)).to eq(true)
+        end
+      end
+
+      context 'when targets dont match' do
+        let(:args) { [[second_user], second_target] }
+
+        subject do
+          build(:target, latitude: target_params[:latitude],
+                         longitude: target_params[:longitude],
+                         user: user, topic: topic)
+        end
+
+        it 'returns false' do
+          expect(subject.send(:matches?, *args)).to eq(false)
+        end
+      end
+    end
+  end
 end

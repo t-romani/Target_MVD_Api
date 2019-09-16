@@ -59,6 +59,7 @@ class Target < ApplicationRecord
 
     matching_users.push(user)
     notificate_users(matching_users)
+    create_conversations(matching_users)
   end
 
   def notificate_users(matching_users)
@@ -68,5 +69,9 @@ class Target < ApplicationRecord
   def matches?(matching_users, target)
     matching_users.exclude?(target.user) &&
       distance_to(target) <= radius + target.radius
+  end
+
+  def create_conversations(matching_users)
+    Conversation.create_conversations(matching_users)
   end
 end
