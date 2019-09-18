@@ -176,6 +176,8 @@ GEM
       json
       require_all (~> 2.0)
       ruby-progressbar
+    rails_best_practices-rake_task (1.0.1)
+      rails_best_practices (~> 1.0)
     railties (5.2.3)
       actionpack (= 5.2.3)
       activesupport (= 5.2.3)
@@ -286,6 +288,7 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 5.2.3)
   rails_best_practices (~> 1.19, >= 1.19.4)
+  rails_best_practices-rake_task (~> 1.0, >= 1.0.1)
   reek (~> 5.4)
   rspec-json_expectations (~> 2.2)
   rspec-rails (~> 3.8, >= 3.8.2)

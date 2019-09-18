@@ -38,6 +38,7 @@ end
 group :development do
   gem 'annotate', '~> 2.7.5'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'rails_best_practices-rake_task', '~> 1.0', '>= 1.0.1'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '~> 2.1'
   gem 'spring-watcher-listen', '~> 2.0.0'

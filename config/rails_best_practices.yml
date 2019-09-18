@@ -38,7 +38,7 @@ UseModelAssociationCheck: { }
 # UseMultipartAlternativeAsContentTypeOfEmailCheck: { }
 #UseParenthesesInMethodDefCheck: { }
 UseObserverCheck: { }
-UseQueryAttributeCheck: { ignored_files: ['/Users/tromani/Target_MVD_Api/app/services/player_ids_service.rb'] }
+UseQueryAttributeCheck: { ignored_files: ['/services/player_ids_service.rb'] }
 UseSayWithTimeInMigrationsCheck: { }
 UseScopeAccessCheck: { }
 UseTurboSprocketsRails3Check: { }
