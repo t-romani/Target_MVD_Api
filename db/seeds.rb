@@ -7,5 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 titles = ['The Pragmatic Programmer', 'The Stupendous Origin', 'The Awakening of the Sencha']
 titles.each do |title|
-  t = Topic.find_or_create_by(title: title)
+  Topic.find_or_create_by(title: title)
 end

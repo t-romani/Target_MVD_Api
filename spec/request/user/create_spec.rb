@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'POST #create sign_up', type: :request do  
+describe 'POST #create sign_up', type: :request do
   let!(:user_params) { { user: attributes_for(:user) } }
   let(:user) { User.last }
   subject do

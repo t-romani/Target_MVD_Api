@@ -45,6 +45,6 @@ class PlayerIdsService
   def update_player_id(response)
     email_player_id = JSON.parse(response.body)['id']
     user.player_id = email_player_id
-    user.save
+    user.save!
   end
 end

@@ -35,13 +35,16 @@
 #
 
 require 'rails_helper'
-describe User, :type => :model do
+describe User, type: :model do
   subject { build(:user) }
 
   describe 'validations' do
-    it { is_expected.to  validate_presence_of(:email) }
-    it { is_expected.to  validate_presence_of(:gender) }
-    it { is_expected.to  validate_presence_of(:full_name) }
-    it { is_expected.to  validate_uniqueness_of(:email).scoped_to(:provider).ignoring_case_sensitivity}
+    it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_presence_of(:gender) }
+    it { is_expected.to validate_presence_of(:full_name) }
+    it {
+      is_expected.to validate_uniqueness_of(:email)
+        .scoped_to(:provider).ignoring_case_sensitivity
+    }
   end
 end
