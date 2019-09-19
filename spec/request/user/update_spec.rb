@@ -69,9 +69,9 @@ describe 'PATCH #update user params', type: :request do
         end
 
         it 'does not change the name/gender' do
-          expect { subject }.not_to(change {
+          expect { subject }.not_to(change do
             [user.reload.full_name, user.reload.gender]
-          })
+          end)
         end
       end
     end

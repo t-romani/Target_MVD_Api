@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'GET #index target', type: :request do  
+describe 'GET #index target', type: :request do
   let!(:user)     { create(:user) }
   let!(:targets)  { create_list(:target, 2, user: user) }
 

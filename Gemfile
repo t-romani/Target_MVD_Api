@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
+gem 'active_storage_base64', '~> 0.1.4'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'brakeman', '~> 4.6', '>= 4.6.1'
 gem 'devise', '~> 4.6', '>= 4.6.2'
@@ -15,29 +16,11 @@ gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.3'
 gem 'rails_best_practices', '~> 1.19', '>= 1.19.4'
 gem 'reek', '~> 5.4'
-gem 'rubocop', '~> 0.74.0'
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
-
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'rubocop-rails', '~> 2.3', '>= 2.3.2'
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
-  gem 'active_storage_base64', '~> 0.1.4'
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails', '~> 5.0', '>= 5.0.2'
   gem 'letter_opener', '~> 1.7'
   gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
@@ -52,6 +35,7 @@ end
 group :development do
   gem 'annotate', '~> 2.7.5'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'rails_best_practices-rake_task', '~> 1.0', '>= 1.0.1'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '~> 2.1'
   gem 'spring-watcher-listen', '~> 2.0.0'
