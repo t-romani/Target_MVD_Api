@@ -20,4 +20,6 @@ class Message < ApplicationRecord
   belongs_to :conversation
 
   validates :text, presence: true
+
+  scope :order_desc, -> { order(id: :desc) }
 end

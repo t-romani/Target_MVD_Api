@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :conversation_user do
-    association :conversation
-    association :user
+    conversation
+    user
   end
 end
