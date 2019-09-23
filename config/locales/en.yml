@@ -37,6 +37,10 @@ en:
         content_type: 'Invalid Content Type'
         content_not_found: "Couldn't find the record"
         max_target_limit: 'Unable to create target, limit reached.'
+    email:
+        matched_target:
+          subject: 'New Match!'
+          body: 'You have matched another Target!'
   mailer:
     confirmation:
       title: "Welcome %{email}!"

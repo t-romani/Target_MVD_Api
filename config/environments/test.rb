@@ -46,4 +46,7 @@ Rails.application.configure do
 
   # Active Storage configuration
   config.active_storage.service = :test
+
+  # Config to Test Jobs
+  config.active_job.queue_adapter = :test
 end

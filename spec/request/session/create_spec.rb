@@ -9,8 +9,17 @@ describe 'POST #create sign_in', type: :request do
 
   context 'when valid' do
     let(:password) { 'example' }
-    context 'when registered and confirmed' do
-      let!(:user) { create(:user, password: password) }
+
+    before do
+      WebMock.stub_request(:post, 'https://onesignal.com/api/v1/players')
+             .to_return(status: 200,
+                        body: File.new(
+                          'spec/support/fixtures/new_player_id_success.json'
+                        ))
+    end
+
+    context 'when registered, confirmed and logging for the first time' do
+      let!(:user) { create(:user, password: password, player_id: nil) }
 
       it 'does get a sucessful answer' do
         subject
@@ -20,6 +29,10 @@ describe 'POST #create sign_in', type: :request do
       it 'does create a new session' do
         subject
         expect(response.headers['client']).to eq(User.last.tokens.keys.first)
+      end
+
+      it 'does create a new player id' do
+        expect { subject }.to(change { User.last.player_id })
       end
     end
   end
