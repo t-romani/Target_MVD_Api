@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_12_123831) do
+ActiveRecord::Schema.define(version: 2019_10_04_160239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,9 +36,10 @@ ActiveRecord::Schema.define(version: 2019_09_12_123831) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "conversation_users", id: false, force: :cascade do |t|
+  create_table "conversation_users", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "conversation_id", null: false
+    t.integer "unread_messages", default: 0, null: false
     t.index ["conversation_id"], name: "index_conversation_users_on_conversation_id"
     t.index ["user_id", "conversation_id"], name: "index_conversation_users_on_user_id_and_conversation_id", unique: true
     t.index ["user_id"], name: "index_conversation_users_on_user_id"
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 2019_09_12_123831) do
     t.text "text", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "message_type", null: false
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end

@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: conversations
+#
+#  id         :bigint           not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'rails_helper'
 
 describe Conversation, type: :model do
@@ -46,6 +55,53 @@ describe Conversation, type: :model do
       it 'returns nil' do
         expect(Conversation.share_conversation(user, second_user)).to eq(nil)
       end
+    end
+  end
+
+  describe '.with_unread_messages_count_for' do
+    include_context 'conversation_between_two_users'
+
+    subject { Conversation.with_unread_messages_count_for(user.id) }
+
+    it 'returns the conversations for the user' do
+      expect(subject.size).to eq(user.conversations.size)
+    end
+
+    it 'returns 0 unread messages for the conversation' do
+      expect(subject.find(conversation.id).unread_count).to eq(0)
+    end
+  end
+
+  describe '#new_message' do
+    include_context 'conversation_between_two_users'
+
+    subject do
+      conversation.new_message(another_user.id)
+    end
+
+    it 'increments unread messages' do
+      expect { subject }.to change {
+        conversation_user.reload.unread_messages
+      }.by(1)
+    end
+  end
+
+  describe '#read_messages' do
+    include_context 'conversation_between_two_users'
+
+    subject do
+      conversation.read_messages(user.id)
+    end
+
+    before do
+      conversation.new_message(another_user.id)
+      conversation.new_message(another_user.id)
+    end
+
+    it 'sets unread messages value to 0' do
+      expect { subject }.to change {
+        conversation_user.reload.unread_messages
+      }.by(-2)
     end
   end
 end

@@ -7,21 +7,14 @@ class MessageService
 
   def create_message(text, user)
     @message = conversation.messages
-                           .create!(text: text, user_id: user.id)
+                           .create!(text: text, user_id: user.id,
+                                    message_type: Message.message_types[:user])
     notify(text, user)
     @message
   end
 
   def notify(text, user)
-    return if target_match(text)
-
     users = conversation.not_current_user(user)
     NotifyRequestJob.perform_later(user, users, text)
-  end
-
-  private
-
-  def target_match(text)
-    text == I18n.t('api.messages.target_match')
   end
 end

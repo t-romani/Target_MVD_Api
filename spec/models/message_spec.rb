@@ -3,6 +3,7 @@
 # Table name: messages
 #
 #  id              :bigint           not null, primary key
+#  message_type    :integer          not null
 #  text            :text             not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -28,5 +29,33 @@ describe Message, type: :model do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:text) }
     it { is_expected.to belong_to(:conversation) }
+    it { is_expected.to validate_presence_of(:message_type) }
+  end
+
+  describe '#increment_unread' do
+    context 'when message is target match' do
+      let!(:message) do
+        create(:message, :match, conversation: conversation,
+                                 user: user)
+      end
+
+      it 'does not call increment unread' do
+        expect(conversation).not_to receive(:new_message)
+        message.send(:increment_unread)
+      end
+    end
+
+    context 'when message is from user' do
+      let!(:message) do
+        create(:message,
+               conversation: conversation,
+               user: user)
+      end
+
+      it 'calls increment unread' do
+        expect(conversation).to receive(:new_message)
+        message.send(:increment_unread)
+      end
+    end
   end
 end

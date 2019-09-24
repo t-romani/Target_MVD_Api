@@ -34,5 +34,17 @@ describe 'POST #create message', type: :request do
       subject
       expect(NotifyRequestJob).to have_been_enqueued
     end
+
+    context 'when unread messages on the other user conversation' do
+      it 'returns correct amount of unread messages on conversation' do
+        get api_v1_conversations_path, headers: another_auth_user_headers, as: :json
+        expect(parsed_data['conversations'].first['unread_messages'])
+          .to eq(0)
+        subject
+        expect(ConversationUser.find_by(user_id: another_user.id,
+                                        conversation_id: conversation.id)
+                               .unread_messages).to eq(1)
+      end
+    end
   end
 end
