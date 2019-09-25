@@ -9,3 +9,4 @@ titles = ['The Pragmatic Programmer', 'The Stupendous Origin', 'The Awakening of
 titles.each do |title|
   Topic.find_or_create_by(title: title)
 end
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

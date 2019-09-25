@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
+gem 'activeadmin', '~> 2.3', '>= 2.3.1'
 gem 'active_storage_base64', '~> 0.1.4'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'brakeman', '~> 4.6', '>= 4.6.1'
