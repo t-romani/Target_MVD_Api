@@ -45,3 +45,4 @@ User.third.targets.find_or_create_by(
   latitude: -34.9071167,
   longitude: -56.2033270
 )
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
