@@ -35,6 +35,7 @@
 #
 class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
+  include ActiveStorageSupport::SupportForBase64
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :validatable, :confirmable, :trackable
@@ -45,8 +46,10 @@ class User < ApplicationRecord
   has_many :conversation_users, dependent: :destroy
   has_many :conversations, through: :conversation_users
   has_many :messages, dependent: :destroy
+  has_one_base64_attached :avatar
 
   before_validation :init_uid
+  before_save :add_default_avatar, on: %i[create]
 
   validates :email, presence: true, uniqueness: {
     scope: :provider, case_sensitive: false
@@ -58,5 +61,14 @@ class User < ApplicationRecord
 
   def init_uid
     self.uid = email if uid.blank? && provider == 'email'
+  end
+
+  def add_default_avatar
+    return if avatar.attached?
+
+    avatar.attach(
+      io: File.open(Rails.root.join('public', 'images', 'no_image_av.png')),
+      filename: 'no_image_av.png', content_type: 'image/png'
+    )
   end
 end
