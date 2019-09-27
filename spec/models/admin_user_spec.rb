@@ -19,7 +19,7 @@
 
 require 'rails_helper'
 
-RSpec.describe AdminUser, type: :model do
+describe AdminUser, type: :model do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:email) }
   end
