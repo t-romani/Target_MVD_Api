@@ -46,6 +46,7 @@ class User < ApplicationRecord
   has_many :conversation_users, dependent: :destroy
   has_many :conversations, through: :conversation_users
   has_many :messages, dependent: :destroy
+  has_many :contacts, dependent: :destroy
   has_one_base64_attached :avatar
 
   before_validation :init_uid
