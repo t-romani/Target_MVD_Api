@@ -41,6 +41,11 @@ class User < ApplicationRecord
 
   enum gender: { male: 0, female: 1, other: 2 }
 
+  has_many :targets, dependent: :destroy
+  has_many :conversation_users, dependent: :destroy
+  has_many :conversations, through: :conversation_users
+  has_many :messages, dependent: :destroy
+
   before_validation :init_uid
 
   validates :email, presence: true, uniqueness: {
@@ -48,8 +53,6 @@ class User < ApplicationRecord
   }
   validates :full_name, :gender, presence: true
   validates :gender, inclusion: { in: genders }
-
-  has_many :targets, dependent: :destroy
 
   private
 

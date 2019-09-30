@@ -8,9 +8,7 @@ module Api
         render :show
       end
 
-      def index
-        targets
-      end
+      def index; end
 
       def destroy
         targets.find(params[:id]).destroy!
