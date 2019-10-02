@@ -16,16 +16,16 @@ gem 'one_signal', '~> 1.2'
 gem 'pg', '~> 1.1', '>= 1.1.4'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.3'
-gem 'rails_best_practices', '~> 1.19', '>= 1.19.4'
-gem 'reek', '~> 5.4'
-gem 'rubocop-rails', '~> 2.3', '>= 2.3.2'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails', '~> 5.0', '>= 5.0.2'
   gem 'letter_opener', '~> 1.7'
+  gem 'rails_best_practices', '~> 1.19', '>= 1.19.4'
+  gem 'reek', '~> 5.4'
   gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
+  gem 'rubocop-rails', '~> 2.3', '>= 2.3.2'
 end
 
 group :test do
