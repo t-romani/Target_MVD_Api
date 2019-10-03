@@ -16,7 +16,7 @@ describe Conversation, type: :model do
     let!(:conversation) { create(:conversation) }
 
     subject(:create_conversations) do
-      Conversation.create_conversations([user, second_user])
+      Conversation.create_conversations(user, [second_user])
     end
 
     it 'creates a conversation' do

@@ -12,8 +12,7 @@ class Conversation < ApplicationRecord
   has_many :users, through: :conversation_users
   has_many :messages, dependent: :destroy
 
-  def self.create_conversations(matching_users)
-    user = matching_users.pop
+  def self.create_conversations(user, matching_users)
     matching_users.each do |match|
       conversation = share_conversation(user, match)
       if conversation.blank?
@@ -32,11 +31,9 @@ class Conversation < ApplicationRecord
     match_conversations = match.conversations
     return if user_conversations.empty? || match_conversations.empty?
 
-    user_conversations.each do |conv|
-      return conv if match_conversations.include?(Conversation.find(conv.id))
+    user_conversations.detect do |conv|
+      match_conversations.include?(conv)
     end
-
-    nil
   end
 
   def not_current_user(current_user)

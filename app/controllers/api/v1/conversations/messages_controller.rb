@@ -2,6 +2,8 @@ module Api
   module V1
     module Conversations
       class MessagesController < Api::V1::ApiController
+        include Pagy::Backend
+
         helper_method :conversation, :user
 
         def create
@@ -12,7 +14,7 @@ module Api
         end
 
         def index
-          @messages = conversation.messages
+          @pagy, @messages = pagy(conversation.messages.order_desc)
           render 'api/v1/messages/index'
         end
 

@@ -57,12 +57,12 @@ class Target < ApplicationRecord
 
     return if matching_users.empty?
 
-    matching_users.push(user)
+    create_conversations(user, matching_users)
     notificate_users(matching_users)
-    create_conversations(matching_users)
   end
 
   def notificate_users(matching_users)
+    matching_users.push(user)
     NotifyRequestJob.perform_later(nil, matching_users, nil)
   end
 
@@ -71,7 +71,7 @@ class Target < ApplicationRecord
       distance_to(target) <= radius + target.radius
   end
 
-  def create_conversations(matching_users)
-    Conversation.create_conversations(matching_users)
+  def create_conversations(user, matching_users)
+    Conversation.create_conversations(user, matching_users)
   end
 end
