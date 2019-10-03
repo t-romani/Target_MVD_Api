@@ -40,6 +40,6 @@ class Conversation < ApplicationRecord
   end
 
   def not_current_user(current_user)
-    users.reject { |user| user == current_user }
+    users.where.not(id: current_user.id).to_a
   end
 end

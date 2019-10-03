@@ -1,7 +1,7 @@
 class NotifyRequestJob < ApplicationJob
   queue_as :default
 
-  def perform(matching_users)
-    NotificationService.new(nil, matching_users).notify
+  def perform(user, matching_users, text)
+    NotificationService.new(user, matching_users, text).notify
   end
 end

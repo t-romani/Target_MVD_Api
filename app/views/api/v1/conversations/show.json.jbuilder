@@ -4,8 +4,5 @@ json.conversation do
              partial: 'api/v1/users/info',
              as: :user
 
-  json.messages @conversation.messages do |message|
-    json.message message, partial: 'api/v1/messages/info',
-                          as: :message
-  end
+  json.partial! 'api/v1/messages/index', messages: conversation.messages
 end

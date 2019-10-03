@@ -63,7 +63,7 @@ class Target < ApplicationRecord
   end
 
   def notificate_users(matching_users)
-    NotifyRequestJob.perform_later(matching_users)
+    NotifyRequestJob.perform_later(nil, matching_users, nil)
   end
 
   def matches?(matching_users, target)

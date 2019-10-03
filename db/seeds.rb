@@ -10,32 +10,17 @@ titles.each do |title|
   Topic.find_or_create_by(title: title)
 end
 
-# user = User.new
-# user.email = 'tiziana.romani@rootstrap.com'
-# user.password = 'aaaaaa'
-# user.password_confirmation = 'aaaaaa'
-# user.gender = 'female'
-# user.full_name = 'Sassss'
-# user.confirm
-# user.save
+u = User.find_or_create_by(email:"tiziana.romani@rootstrap.com", gender: 'female', full_name: 'Tiziana')
+u.password = 'aaaaaa'
+u.save
 
-# user = User.new
-# user.email = 'tiziana.romani1@rootstrap.com'
-# user.password = 'aaaaaa'
-# user.password_confirmation = 'aaaaaa'
-# user.gender = 'female'
-# user.full_name = 'Sassss'
-# user.confirm
-# user.save
+u = User.find_or_create_by(email:"tiziana.romani1@rootstrap.com", gender: 'female', full_name: 'Tiziana')
+u.password = 'aaaaaa'
+u.save
 
-# user = User.new
-# user.email = 'tiziana.romani2@rootstrap.com'
-# user.password = 'aaaaaa'
-# user.password_confirmation = 'aaaaaa'
-# user.gender = 'female'
-# user.full_name = 'Sassss'
-# user.confirm
-# user.save
+u = User.find_or_create_by(email:"tiziana.romani2@rootstrap.com", gender: 'female', full_name: 'Tiziana')
+u.password = 'aaaaaa'
+u.save
 
 User.first.targets.find_or_create_by(
   topic_id: 1,
