@@ -15,6 +15,7 @@ Rails.application.routes.draw do
           resources :messages, module: :conversations, only: %i[create index]
         end
         resources :contacts, only: :create, path: '/contact'
+        resources :informations, param: :title, only: :show, path: ''
       end
     end
   end

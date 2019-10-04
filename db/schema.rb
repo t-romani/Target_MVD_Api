@@ -98,6 +98,12 @@ ActiveRecord::Schema.define(version: 2019_10_15_152940) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "information", force: :cascade do |t|
+    t.integer "title", null: false
+    t.text "text"
+    t.index ["title"], name: "index_information_on_title", unique: true
+  end
+
   create_table "messages", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "conversation_id", null: false
