@@ -23,8 +23,8 @@ detectors:
     allow_calls: []
   FeatureEnvy:
     enabled: true
-    exclude: [
-    ]
+    exclude: 
+      - "Conversation#new_message"
   InstanceVariableAssumption:
     enabled: false
   IrresponsibleModule:

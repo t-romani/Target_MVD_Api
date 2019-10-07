@@ -10,7 +10,7 @@ module Api
       end
 
       def conversations
-        @conversations ||= user.conversations
+        @conversations ||= Conversation.with_unread_messages_count_for(user.id)
       end
     end
   end

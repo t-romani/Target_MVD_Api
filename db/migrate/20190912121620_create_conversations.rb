@@ -2,7 +2,7 @@ class CreateConversations < ActiveRecord::Migration[5.2]
   def change
     create_table(:conversations, &:timestamps)
 
-    create_table :conversation_users, bulk: true, id: false do |t|
+    create_table :conversation_users, bulk: true do |t|
       t.belongs_to :user, null: false, foreign_key: true
       t.belongs_to :conversation, null: false, foreign_key: true
     end

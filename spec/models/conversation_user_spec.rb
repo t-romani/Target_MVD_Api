@@ -19,14 +19,16 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-class ConversationUser < ApplicationRecord
-  belongs_to :user
-  belongs_to :conversation
+require 'rails_helper'
 
-  validates :unread_messages, numericality: { only_integer: true }
+describe ConversationUser, type: :model do
+  include_context 'conversation_between_two_users'
 
-  scope :not_for_user, lambda { |user_id, conversation_id|
-    where(conversation_id: conversation_id)
-      .where.not(user_id: user_id)
-  }
+  subject { conversation_user }
+
+  describe 'validations' do
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:conversation) }
+    it { is_expected.to validate_numericality_of(:unread_messages) }
+  end
 end
