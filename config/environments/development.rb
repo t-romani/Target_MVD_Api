@@ -37,14 +37,22 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   user_name: 'no-reply@target.com',
+  #   password: 'password',
+  #   domain: 'localhost',
+  #   address: 'smtp.gmail.com',
+  #   port: '587',
+  #   authentication: :plain,
+  #   enable_starttls_auto: true
+  # }
   config.action_mailer.smtp_settings = {
-    user_name: 'no-reply@target.com',
-    password: 'password',
-    domain: 'localhost',
-    address: 'smtp.gmail.com',
-    port: '587',
-    authentication: :plain,
-    enable_starttls_auto: true
+    port: ENV['SENDGRID_SMTP_PORT'],
+    address: ENV['SENDGRID_SMTP_SERVER'],
+    user_name: ENV['SENDGRID_SMTP_USERNAME'],
+    password: ENV['SENDGRID_SMTP_PASSWORD'],
+    domain: 'localhost:3000',
+    authentication: :plain
   }
 
   # Print deprecation notices to the Rails logger.

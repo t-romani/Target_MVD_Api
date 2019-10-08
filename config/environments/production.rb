@@ -82,4 +82,15 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Mailer configuration
+  ActionMailer::Base.smtp_settings = {
+    port: 25,
+    address: 'smtp.sendgrid.net',
+    user_name: ENV['SENDGRID_USERNAME'],
+    password: ENV['SENDGRID_PASSWORD'],
+    domain: 'target-tiziana-staging.heroku.com',
+    authentication: :plain
+  }
+  ActionMailer::Base.delivery_method = :smtp
 end
