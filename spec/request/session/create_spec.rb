@@ -35,6 +35,30 @@ describe 'POST #create sign_in', type: :request do
         expect { subject }.to(change { User.last.player_id })
       end
     end
+
+    context 'when logging in with facebook' do
+      let!(:facebook_params) { { access_token: '123456', format: :json } }
+
+      subject { post facebook_api_v1_users_path, params: facebook_params, as: :json }
+
+      before do
+        post facebook_api_v1_users_path, params: facebook_params, as: :json
+        User.last.update!(tokens: nil)
+      end
+
+      it 'returns a successful response' do
+        subject
+        expect(response).to be_successful
+      end
+
+      it 'does not create an user' do
+        expect { subject }.not_to change(User, :count)
+      end
+
+      it 'creates new token' do
+        expect { subject }.to change { User.last.tokens }
+      end
+    end
   end
 
   context 'when invalid' do

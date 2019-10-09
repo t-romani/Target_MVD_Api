@@ -166,4 +166,41 @@ describe 'POST #create sign_up', type: :request do
       end
     end
   end
+
+  context 'when signing up with facebook' do
+    let!(:facebook_params) { { access_token: '123456', format: :json } }
+
+    subject do
+      post facebook_api_v1_users_path, params: facebook_params, as: :json
+    end
+
+    before do
+      WebMock.stub_request(:post, 'https://onesignal.com/api/v1/players')
+             .to_return(status: 200,
+                        body: File.new(
+                          'spec/support/fixtures/new_player_id_success.json'
+                        ))
+    end
+
+    it 'returns a successful response' do
+      subject
+      expect(response).to be_successful
+    end
+
+    it 'creates an user' do
+      expect { subject }.to change(User, :count).by(1)
+    end
+
+    it 'assigns the information properly' do
+      subject
+      expect(parsed_data).to include_json(
+        user: {
+          name: 'Test test',
+          email: 'test@facebook.com'
+        }
+      )
+      expect(User.last.gender).to eq('male')
+      expect(User.last.uid).to eq('1234567890')
+    end
+  end
 end

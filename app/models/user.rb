@@ -58,6 +58,21 @@ class User < ApplicationRecord
   validates :full_name, :gender, presence: true
   validates :gender, inclusion: { in: genders }
 
+  def self.from_social_provider(provider, user_params)
+    find_or_create_by!(provider: provider, uid: user_params['id']) do |user|
+      user.password = Devise.friendly_token[0, 20]
+      user.full_name = "#{user_params['first_name']} #{user_params['last_name']}"
+      user.email = user_params['email']
+      user.add_facebook_avatar(user_params['picture']['data']['url'])
+      user.gender = user_params['gender']
+      user.skip_confirmation!
+    end
+  end
+
+  def add_facebook_avatar(url)
+    avatar.attach(io: open(url), filename: "#{email}-avatar.jpg")
+  end
+
   private
 
   def init_uid

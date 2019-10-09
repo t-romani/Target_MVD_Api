@@ -5,10 +5,15 @@ Rails.application.routes.draw do
     confirmations: 'api/v1/confirmations',
     passwords: 'api/v1/passwords'
   }
+
   namespace :api do
     namespace :v1, defaults: { format: :json } do
       devise_scope :user do
-        resources :users, only: :update
+        resources :users, only: :update do
+          controller :sessions do
+            post :facebook, on: :collection
+          end
+        end
         resources :topics, only: :index
         resources :targets, only: %i[create index destroy]
         resources :conversations, only: :index do
