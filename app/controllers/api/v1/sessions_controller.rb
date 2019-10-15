@@ -3,13 +3,19 @@ module Api
     class SessionsController < DeviseTokenAuth::SessionsController
       include ActAsApi
 
+      helper_method :user
+
       def sign_in_params
         params.require(:user).permit(:email, :password)
       end
 
       def render_create_success
         set_player_id
-        render json: { user: resource_data }
+        render 'api/v1/users/show'
+      end
+
+      def user
+        @user ||= current_user
       end
 
       private

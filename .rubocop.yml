@@ -76,6 +76,9 @@ Style/ExpandPathArguments:
  Enabled: false
 Style/FrozenStringLiteralComment:
  Enabled: false
+Style/MixinUsage:
+ Exclude:
+   - spec/factories/user.rb
 Style/ModuleFunction:
  Enabled: false
 Style/ReturnNil:

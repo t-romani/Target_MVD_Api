@@ -47,4 +47,20 @@ describe User, type: :model do
         .scoped_to(:provider).ignoring_case_sensitivity
     }
   end
+
+  context 'when image is present' do
+    let!(:user) { create(:user, :with_avatar) }
+
+    it 'is valid' do
+      expect(User.last.avatar.attached?).to eq(true)
+    end
+  end
+
+  context 'when image is nil' do
+    let!(:user) { create(:user, avatar: nil) }
+
+    it 'sets default image' do
+      expect(user.avatar.attached?).to eq(true)
+    end
+  end
 end
