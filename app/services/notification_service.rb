@@ -69,10 +69,12 @@ class NotificationService
   end
 
   def msg_request_params(player_ids, text)
-    { 'app_id' => ONE_SIGNAL_APP_ID,
-      'email_subject' => I18n.t('api.email.new_message.subject'),
-      'email_body' => text,
-      'include_player_ids' => player_ids }
+    {
+      app_id: ENV['ONE_SIGNAL_APP_ID'],
+      email_subject: I18n.t('api.email.new_message.subject'),
+      email_body: text,
+      include_player_ids: player_ids
+    }
   end
 
   def send_request(uri, params)

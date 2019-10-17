@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>New contact form</h1>
+    <p>
+      The user <%= @user.full_name %> wants to communicate with you. <br>
+    </p>
+    <p>
+       <%= @user.full_name %> has written the following:<br>
+    </p>
+    <p>
+      <%= @contact_form.text %> <br>
+    </p>
+    <p>You can answer <%= @user.full_name %> by writting to the email:  <%= @user.email %></p>
+  </body>
+</html>

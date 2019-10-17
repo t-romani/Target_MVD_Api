@@ -43,6 +43,8 @@ en:
         body: 'You have matched another Target!'
       new_message:
         subject: 'New message!'
+      admin_contact:
+        subject: 'There is a new contact form!'
     messages:
       target_match: 'You have a new match!'
   mailer:
